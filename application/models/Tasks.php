@@ -47,5 +47,4 @@ class Tasks extends CSV_Model {
         );
         return $config;
     }
-
 }
