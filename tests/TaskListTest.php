@@ -1,29 +1,33 @@
 <?php
+require_once 'PHPUnit/Autoload.php';
+
+
 use PHPUnit\Framework\TestCase;
 
-class TaskListTest extends TestCase
-{
+
+class TaskListTest extends TestCase {
+
     private $CI;
 
-    public function setUp()
-    {
-        $this->CI =& get_instance();
+    public function setUp() {
+        $this->CI = & get_instance();
     }
 
-    public function testTaskCompletion()
-    {
+    public function testSet() {
         $tasks = $this->CI->tasks->all();
-        $unfinishedTasks = 0;
-        $finishedTasks = 0;
-
-        foreach ($tasks as $task) {
-            if ($task->status == 2)
-                $finishedTasks++;
-            else
-                $unfinishedTasks++;
-        }
 
 
-        $this->assertGreaterThan($finishedTasks, $unfinishedTasks);
+            $completeTasks = 0;
+            $incompleteTasks = 0;
+            foreach ($tasks as $task) {
+                if ($task->status == 2) {
+                    $completeTasks++;
+                } else {
+                    $incompleteTasks++;
+                }
+            }
+            $this->assertGreaterThan($completeTasks, $incompleteTasks);
+
     }
+
 }
