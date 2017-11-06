@@ -1,158 +1,37 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
-require_once 'PHPUnit/Autoload.php';
 
-require('../application/models/Task.php');
+require '../application/entities/Task.php';
 
-class TaskTest extends TestCase {
-
-    public $task;
-
-    public function setUp() {
-        $this->task = new Task();
-    }
-	
-    public function testSet1() {
-        $key = 'task';
-		
-        $value = 'abdefghijklmnopqrstuvwxyzabdefghijklmnopqrstuvwxyzabdefghijklmnopqrstuvwxyzabdefghijklmnopqrstuvwxyzabdefghijklmnopqrstuvwxyz';
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-
-
-
-		$value = '';
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 'php is heartbreak';
-		$this->task->__set($key, $value);
-		$this->assertEquals($value, $this->task->$key);
-
-        $value = 'another one that is valid';
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-
-    }
-
-
-
-	public function testSet2() {
-        $key = 'priority';
-
-		$value = 4;
-		try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = -1;
-		try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 0;
-		try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 1;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-
-		$value = 3;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-    }
-    
-    public function testSet3() {
-        $key = 'size';
-        
-		$value = 4;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = -1;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 0;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 1;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-		
-		$value = 3;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-		
-    }
-    
-    public function testSet4() {
-        $key = 'group';
-		
-        $value = 5;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }	
-		
-        $value = -1;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-        $value = 0;
-        try {
-            $this->task->__set($key, $value);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->assertEquals(null, $this->task->$key);
-        }
-		
-		$value = 1;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-		
-		$value = 4;
-        $this->task->__set($key, $value);
-        $this->assertEquals($value, $this->task->$key);
-    }
-    
+ class TaskTest extends TestCase {
+  private $task;
+  public function setUp()
+  {
+      $this->task = new Task();
+  }
+  public function testTaskSuccess()
+  {
+     $taskIsSet = $this->task->setTask('connor');
+     $groupIsSet = $this->task->setGroup(2);
+     $sizeIsSet = $this->task->setSize(3);
+     $priorityIsSet = $this->task->setPriority(4);
+     
+     $this->assertTrue($taskIsSet);
+     $this->assertTrue($groupIsSet);
+     $this->assertTrue($sizeIsSet);
+     $this->assertTrue($priorityIsSet);
+  }
+  
+  public function testTaskFailure()
+  {
+     $taskIsSet = $this->task->setTask('Thisis64charactersitsgoingtotakemalongtimetotypebutineedtoseeifitworksthisisareallylongstringjimisacoolguyisthis64charactersyet');
+     $groupIsSet = $this->task->setGroup(10);
+     $sizeIsSet = $this->task->setSize(100);
+     $priorityIsSet = $this->task->setPriority(999999999);
+     
+     $this->assertFalse($taskIsSet);
+     $this->assertFalse($groupIsSet);
+     $this->assertFalse($sizeIsSet);
+     $this->assertFalse($priorityIsSet);
+  }
 }

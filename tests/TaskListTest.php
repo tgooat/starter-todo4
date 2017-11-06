@@ -16,21 +16,18 @@ class TaskListTest extends TestCase {
     public function testSet() {
         $tasks = $this->CI->tasks->all();
 
-        try {
+
             $completeTasks = 0;
             $incompleteTasks = 0;
             foreach ($tasks as $task) {
-                if ($task->status != 2) {
-                    $incompleteTasks++;
-                } else {
+                if ($task->status == 2) {
                     $completeTasks++;
+                } else {
+                    $incompleteTasks++;
                 }
             }
             $this->assertGreaterThan($completeTasks, $incompleteTasks);
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            //$this->assertEquals(null, $this->task->$key);
-        }
+
     }
 
 }
