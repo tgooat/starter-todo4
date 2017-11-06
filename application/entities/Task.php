@@ -11,9 +11,10 @@
  *
  * @author Connor
  */
-require(dirname(__FILE__).'/'.'Entity.php'); 
+require(dirname(__FILE__).'/'.'Entity.php');
+
 class Task extends Entity {
-    //put your code here
+
     private $task;
     private $priority;
     private $size;
