@@ -1,6 +1,6 @@
 <?php
 
-require APPPATH.'entities\Task.php';
+//require APPPATH.'entities\Task.php';
 /**
  * CSV-persisted collection.
  * 
@@ -20,7 +20,7 @@ class CSV_Model extends Memory_Model
 	 * @param string $keyfield  Name of the primary key field
 	 * @param string $entity	Entity name meaningful to the persistence
 	 */
-	function __construct($origin = null, $keyfield = 'id', $entity = 'Task')
+	function __construct($origin = null, $keyfield = 'id', $entity = null)
 	{
 		parent::__construct();
 
